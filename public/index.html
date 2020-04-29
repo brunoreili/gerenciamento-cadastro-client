@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="gerenciamentocadastro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cadastro de Pessoas</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/controllers/operadores-controller.js"></script>
+    </head>
+    <body ng-controller="OperadoresController">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="text-center">Cadastro de Pessoas</h1>
+            </div>
+            <div ng-repeat="operador in operadores">
+                <h3 class="panel-title">{{operador.nome}}</h3>
+            </div>
+        </div> <!-- fim container -->        
+    </body>
+</html>
