@@ -4,20 +4,49 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <title>Cadastro de Pessoas</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/fontawesome/fontawesome.min.css">
+        <link rel="stylesheet" href="css/fontawesome/all.css">
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"> -->
         <script src="js/lib/angular.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/controllers/operadores-controller.js"></script>
     </head>
     <body ng-controller="OperadoresController">
+
         <div class="container">
             <div class="jumbotron">
-                <h1 class="text-center">Cadastro de Pessoas</h1>
+                <h1 class="text-center">Operadores</h1>
             </div>
-            <div ng-repeat="operador in operadores">
-                <h3 class="panel-title">{{operador.nome}}</h3>
+
+            <div class="mb-2" style="text-align: right">
+                <button class="btn btn-primary">Novo Operador <i class="fas fa-users"></i></button>
             </div>
-        </div> <!-- fim container -->        
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nº Registro</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Perfil</th>
+                        <th scope="col">Data de Cadastro</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="operador in operadores">
+                        <th scope="row">{{operador.id}}</th>
+                        <td>{{operador.nome}}</td>
+                        <td>{{operador.perfil}}</td>
+                        <td>{{operador.dataCadastro}}</td>
+                        <td> 
+                            <button class="btn btn-sm btn-success">Editar <i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger">Excluir <i class="far fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> <!-- fim container -->   
+
     </body>
 </html>
