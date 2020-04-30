@@ -14,8 +14,7 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
         $scope.mensagem = 'Não foi possível listar os operadores!';
     });
 
-    $scope.excluir = function(operador) {
-        
+    $scope.excluir = function(operador) {        
         $http.delete(operadoresUrl + operador.id)
         .success(function() {
             var indiceOperador = $scope.operadores.indexOf(operador);
@@ -33,4 +32,5 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
         $scope.mensagem = '';
         $scope.countErros = 0;
     }
+    
 });

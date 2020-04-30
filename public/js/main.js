@@ -24,7 +24,7 @@ angular.module('gerenciamentocadastro', ['ngRoute', 'servicos'])
 
     $routeProvider.when('/pessoas', {
         templateUrl: 'partials/pessoas.html',
-        // controller: 'OperadoresController'
+        controller: 'PessoasController'
     });
     
     $routeProvider.otherwise({ redirectTo: '/login' });
