@@ -42,7 +42,24 @@
         <a href="/" class="btn btn-secondary">Voltar</a>
         <hr/>
     </div>
+    <div class="col-md-6">
+        <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
+            <p>{{mensagem}}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>{{mensagem}}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
 </form>
+
+
 
 <style>
     .alerta-required {
