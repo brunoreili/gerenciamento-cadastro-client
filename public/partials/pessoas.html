@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h1 class="text-center">Operadores</h1>
+    <h1 class="text-center">Pessoas</h1>
 </div>
 
 <div class="col-md-6">
@@ -19,7 +19,7 @@
 </div>
 
 <div class="mb-2" style="text-align: right">
-    <a href="/operadores/new" class="btn btn-primary">Novo Operador</a>
+    <a href="/pessoas/new" class="btn btn-primary">Nova Pessoa</a>
 </div>
 
 <div class="table-responsive">
@@ -28,22 +28,27 @@
             <tr>
                 <th scope="col">Nº Registro</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Perfil</th>
+                <th scope="col">Documento</th>
+                <th scope="col">Tipo Pesssoa</th>
+                <th scope="col">Data de Nascimento</th>
                 <th scope="col">Data de Cadastro</th>
+                <th scope="col">Login do Operador</th>
                 <th scope="col">Ação</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="operador in operadores">
-                <th scope="row">{{operador.id}}</th>
-                <td>{{operador.nome}}</td>
-                <td>{{operador.perfil}}</td>
-                <!-- <td>{{operador.dataCadastro}}</td> -->
-                <td>HOJE</td>
+            <tr >
+                <th>1</th>
+                <td>Fulano da Silva Sauro Júnior</td>
+                <td>999.999.999-99</td>
+                <td>CPF</td>
+                <td>01/01/2001</td>
+                <td>30/04/2020</td>
+                <td>Operador</td>
                 <td> 
                     <div class="btn-group">
-                        <a href="/operadores/edit/{{operador.id}}" class="btn btn-sm btn-success">Editar</a>
-                        <button class="btn btn-sm btn-danger" ng-click="excluir(operador)">Excluir</button>
+                        <a href="" class="btn btn-sm btn-success">Editar</a>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
                     </div>
                 </td>
             </tr>

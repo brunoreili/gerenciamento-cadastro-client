@@ -21,6 +21,11 @@ angular.module('gerenciamentocadastro', ['ngRoute', 'servicos'])
         templateUrl: 'partials/cadastroOperador.html',
         controller: 'CadastroOperadorController'
     });
+
+    $routeProvider.when('/pessoas', {
+        templateUrl: 'partials/pessoas.html',
+        // controller: 'OperadoresController'
+    });
     
     $routeProvider.otherwise({ redirectTo: '/login' });
 });
