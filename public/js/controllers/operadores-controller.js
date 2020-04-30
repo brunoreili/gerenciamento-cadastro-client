@@ -1,10 +1,10 @@
-angular.module('gerenciamentocadastro').controller('OperadoresController', function($scope, $http) {
+angular.module('gerenciamentocadastro').controller('OperadoresController', function($scope, $http, operadoresUrl) {
 
     $scope.operadores = [];
     $scope.mensagem = '';
     $scope.countErros = 0;
 
-    $http.get('http://localhost:8080/resources/operadores')
+    $http.get(operadoresUrl)
     .success(function(operadores) {
         $scope.operadores = operadores;
     })
@@ -16,7 +16,7 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
 
     $scope.excluir = function(operador) {
         
-        $http.delete('http://localhost:8080/resources/operadores/' + operador.id)
+        $http.delete(operadoresUrl + operador.id)
         .success(function() {
             var indiceOperador = $scope.operadores.indexOf(operador);
             $scope.operadores.splice(indiceOperador, 1);

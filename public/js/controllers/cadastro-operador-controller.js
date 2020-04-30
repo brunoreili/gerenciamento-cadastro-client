@@ -1,4 +1,4 @@
-angular.module('gerenciamentocadastro').controller('CadastroOperadorController', function($scope, $http, $routeParams) {
+angular.module('gerenciamentocadastro').controller('CadastroOperadorController', function($scope, $http, $routeParams, operadoresUrl) {
 
     $scope.titulo = 'Cadastar Operador'
     $scope.operador = {};
@@ -6,7 +6,7 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
     $scope.countErros = 0;
 
     if($routeParams.operadorId) {
-        $http.get('http://localhost:8080/resources/operadores/' + $routeParams.operadorId)
+        $http.get(operadoresUrl + $routeParams.operadorId)
         .success(function(operador) {
             $scope.operador = operador;
             $scope.operador.confirmarSenha = operador.senha;
@@ -33,10 +33,9 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
     };
 
     $scope.incluirOperador = function(objOperador) {
-        // $http.post('http://localhost:8080/resources/operadores', objOperador)
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/resources/operadores',
+            url: operadoresUrl,
             data: objOperador,
             headers: {
                 'Access-Control-Allow-Origin' : '*',
@@ -58,7 +57,7 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
     };
 
     $scope.editarOperador = function(objOperador) {
-        $http.put('http://localhost:8080/resources/operadores/' + $scope.operador.id, objOperador)
+        $http.put(operadoresUrl + $scope.operador.id, objOperador)
         .success(function() {
             $scope.mensagem = "Operador editado com sucesso!";
         })  

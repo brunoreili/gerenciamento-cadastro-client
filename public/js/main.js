@@ -1,4 +1,4 @@
-angular.module('gerenciamentocadastro', ['ngRoute'])
+angular.module('gerenciamentocadastro', ['ngRoute', 'servicos'])
 .config(function($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
