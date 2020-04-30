@@ -2,11 +2,20 @@
     <h1 class="text-center">Operadores</h1>
 </div>
 
-<div ng-show="mensagem.length" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <p>{{mensagem}}</p>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="mensagem = ''">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div class="col-md-6">
+    <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </div>
 
 <div class="mb-2" style="text-align: right">
@@ -28,10 +37,11 @@
             <th scope="row">{{operador.id}}</th>
             <td>{{operador.nome}}</td>
             <td>{{operador.perfil}}</td>
-            <td>{{operador.dataCadastro}}</td>
+            <!-- <td>{{operador.dataCadastro}}</td> -->
+            <td>HOJE</td>
             <td> 
                 <button class="btn btn-sm btn-success">Editar <i class="far fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger">Excluir <i class="far fa-trash-alt"></i></button>
+                <button class="btn btn-sm btn-danger" ng-click="excluir(operador)">Excluir <i class="far fa-trash-alt"></i></button>
             </td>
         </tr>
     </tbody>
