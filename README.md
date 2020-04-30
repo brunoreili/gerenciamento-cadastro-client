@@ -13,3 +13,12 @@
 
 4. Após baixar todas as dependências basta iniciar o servidor executando o comando:
 		npm start
+
+### OBSERVAÇÕES IMPORTANTES
+
+1. #### CORS
+- Na integração com o back-end, o sitema apresenta um bloqueio devido às políticas do CORS. 
+Apensar de algumas tentativas com filtro ou passando Access-Control pelo header da requisição o problema persiste.
+A solução paleativa (e temporárioa) foi utlizar uma extensão no navegador para evitar o bloqueio quando ativada.
+Ex de extensão: "Allow CORS: Access-Control-Allow-Origin" podendo ser baixada pelo site: 
+https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
