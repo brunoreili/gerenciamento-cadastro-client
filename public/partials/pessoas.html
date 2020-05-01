@@ -29,7 +29,7 @@
                 <th scope="col">Nº Registro</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Documento</th>
-                <th scope="col">Tipo Pesssoa</th>
+                <th scope="col">Tipo de Pesssoa</th>
                 <th scope="col">Data de Nascimento</th>
                 <th scope="col">Data de Cadastro</th>
                 <th scope="col">Login do Operador</th>
@@ -37,14 +37,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr >
-                <th>1</th>
-                <td>Fulano da Silva Sauro Júnior</td>
-                <td>999.999.999-99</td>
-                <td>CPF</td>
-                <td>01/01/2001</td>
-                <td>30/04/2020</td>
-                <td>Operador</td>
+            <tr ng-repeat="pessoa in pessoas">
+                <th>{{pessoa.id}}</th>
+                <td>{{pessoa.nome}}</td>
+                <td>{{pessoa.documento}}</td>
+                <td>{{pessoa.tipoPessoa}}</td>
+                <td>{{pessoa.dataNascimento}}</td>
+                <td>{{pessoa.dataCadastro}}</td>
+                <td>{{pessoa.loginOperador}}</td>
                 <td> 
                     <div class="btn-group">
                         <a href="" class="btn btn-sm btn-success">Editar</a>

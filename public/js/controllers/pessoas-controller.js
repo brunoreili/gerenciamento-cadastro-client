@@ -7,7 +7,6 @@ angular.module('gerenciamentocadastro').controller('PessoasController', function
     $http.get(pessoasUrl)
     .success(function(pessoas) {
         $scope.pessoas = pessoas;
-        console.log($scope.pessoas);
     })
     .error(function(error) {
         console.log(error);
