@@ -13,8 +13,7 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
         })
         .error(function(error) {
             console.log(error);
-            $scope.countErros++;
-            $scope.mensagem = 'Não foi possível buscar o operador para edição!';
+            window.location.href = "/operador/listar";
         });
     };
 

@@ -7,32 +7,32 @@ angular.module('gerenciamentocadastro', ['ngRoute', 'servicos'])
         templateUrl: 'partials/login.html',
     });
 
-    $routeProvider.when('/operadores', {
+    $routeProvider.when('/operador/listar', {
         templateUrl: 'partials/operadores.html',
         controller: 'OperadoresController'
     });
 
-    $routeProvider.when('/operadores/new', {
+    $routeProvider.when('/operador/cadastrar', {
         templateUrl: 'partials/cadastroOperador.html',
         controller: 'CadastroOperadorController'
     });
 
-    $routeProvider.when('/operadores/edit/:operadorId', {
+    $routeProvider.when('/operador/editar/:operadorId', {
         templateUrl: 'partials/cadastroOperador.html',
         controller: 'CadastroOperadorController'
     });
 
-    $routeProvider.when('/pessoas', {
+    $routeProvider.when('/pessoa/listar', {
         templateUrl: 'partials/pessoas.html',
         controller: 'PessoasController'
     });
 
-    $routeProvider.when('/pessoas/new', {
+    $routeProvider.when('/pessoa/cadastrar', {
         templateUrl: 'partials/cadastroPessoa.html',
         controller: 'CadastroPessoaController'
     });
 
-    $routeProvider.when('/pessoas/edit/:pessoaId', {
+    $routeProvider.when('/pessoa/editar/:pessoaId', {
         templateUrl: 'partials/cadastroPessoa.html',
         controller: 'CadastroPessoaController'
     });

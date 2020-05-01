@@ -14,8 +14,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         })
         .error(function(error) {
             console.log(error);
-            $scope.countErros++;
-            $scope.mensagem = 'Não foi possível buscar a pessoa para edição!';
+            window.location.href = "/pessoa/listar";
         });
     };
 

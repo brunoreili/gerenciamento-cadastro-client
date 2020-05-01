@@ -19,7 +19,7 @@
 </div>
 
 <div class="mb-2" style="text-align: right">
-    <a href="/pessoas/new" class="btn btn-primary">Nova Pessoa</a>
+    <a href="/pessoa/cadastrar" class="btn btn-primary">Nova Pessoa</a>
 </div>
 
 <div class="table-responsive">
@@ -47,7 +47,7 @@
                 <td>{{pessoa.loginOperador}}</td>
                 <td> 
                     <div class="btn-group">
-                        <a href="/pessoas/edit/{{pessoa.id}}" class="btn btn-sm btn-success">Editar</a>
+                        <a href="/pessoa/editar/{{pessoa.id}}" class="btn btn-sm btn-success">Editar</a>
                         <button class="btn btn-sm btn-danger" ng-click="excluir(pessoa)">Excluir</button>
                     </div>
                 </td>
