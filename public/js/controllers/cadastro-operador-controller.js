@@ -9,7 +9,6 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
         $http.get(operadoresUrl + $routeParams.operadorId)
         .success(function(operador) {
             $scope.operador = operador;
-            $scope.operador.confirmarSenha = operador.senha;
             $scope.titulo = 'Editar Operador'
         })
         .error(function(error) {
@@ -23,7 +22,6 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
         if($scope.formulario.$valid) { 
             
             var objOperador = this.formatarObjOperador();
-
             if(!$scope.operador.id) {           
                 this.incluirOperador(objOperador);
             } else {
