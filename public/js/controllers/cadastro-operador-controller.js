@@ -19,7 +19,7 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
     };
 
     $scope.submeter = function() {        
-        if($scope.formulario.$valid) { 
+        if($scope.formulario.$valid) {
             
             var objOperador = this.formatarObjOperador();
             if(!$scope.operador.id) {           
@@ -66,10 +66,8 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
         });
     };
 
-    $scope.formatarObjOperador = function() {
-               
+    $scope.formatarObjOperador = function() {               
         var objOperador = {
-            id: $scope.operador.id ? $scope.operador.id : null,
             nome: $scope.operador.nome,
             login: $scope.operador.login,
             senha: $scope.operador.senha,

@@ -9,6 +9,7 @@
             <input type="text" name="nome" class="form-control" ng-model="operador.nome" required/>
             <span ng-show="formulario.$submitted && !operador.nome" class="alerta-required">Nome obrigatório</span>
         </div>
+
         <div class="form-group">
             <label>Login:<span class="alerta-required">*</span></label>
             <div>
@@ -17,12 +18,13 @@
             </div>
             <span ng-show="formulario.$submitted && !operador.login" class="alerta-required"> Login obrigatório</span>
         </div>
+
         <div class="form-group">
             <label>Senha:<span class="alerta-required">*</span></label>
             <input type="password" name="senha" class="form-control" ng-model="operador.senha" required/>
             <span ng-show="formulario.$submitted && !operador.senha" class="alerta-required">Senha obrigatória</span>
-            
         </div>
+        
         <div class="form-group">
             <label>Confirmar Senha:<span class="alerta-required">*</span></label>
             <input type="password" name="confirmarSenha" class="form-control" ng-model="operador.confirmarSenha" required/>
@@ -62,8 +64,6 @@
         </div>
     </div>
 </form>
-
-
 
 <style>
     .alerta-required {
