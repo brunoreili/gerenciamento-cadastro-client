@@ -6,6 +6,12 @@ angular.module('gerenciamentocadastro')
     $scope.titulo = 'Cadastar Operador'
     $scope.operador = {};
 
+    $scope.msgValidacaoNome = 'O campo "Nome" é obrigatório';
+    $scope.msgValidacaoLogin = 'O campo "Login" é obrigatório';
+    $scope.msgValidacaoSenha = 'O campo "Senha" é obrigatório';
+    $scope.msgValidacaoConfirmacao = 'O campo "Confirmação" é obrigatório';
+    $scope.msgValidacaoPerfil = 'O campo "Perfil" é obrigatório';
+
     if($routeParams.operadorId) {
         $http.get(operadoresUrl + $routeParams.operadorId)
         .success(function(operador) {
@@ -18,9 +24,14 @@ angular.module('gerenciamentocadastro')
         });
     };
 
-    $scope.submeter = function() {        
-        if($scope.formulario.$valid) {
-            
+    $scope.submeter = function() {
+        if($scope.operador.confirmarSenha != ""  && $scope.operador.confirmarSenha != $scope.operador.senha) {
+            $scope.operador.confirmarSenha = "";
+            $scope.formulario.$valid = false;
+            $scope.msgValidacaoConfirmacao = 'Campo "Confirmar Senha" e "Senha" são diferentes';           
+        }
+        
+        if($scope.formulario.$valid) {            
             const objOperador = this.formatarObjOperador();
             if(!$scope.operador.id) {           
                 this.incluirOperador(objOperador);
@@ -81,4 +92,30 @@ angular.module('gerenciamentocadastro')
         $scope.mensagem = '';
         $scope.countErros = 0;
     };
+
+    $("#nome").on("input", function(){
+        var regex = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+        if(!this.value.match(regex)) $scope.msgValidacaoNome = 'O campo "Nome" não deve possuir apenas números';
+        if(this.value == "") $scope.msgValidacaoNome = 'O campo "Nome" é obrigatório';
+    });
+
+    $("#login").on("input", function(){
+        var regex = /^[A-Za-z_-]+$/;
+        if(!this.value.match(regex)) $scope.msgValidacaoLogin = 'O campo "Login" deve conter apenas "Letras", "-" ou "_"';
+        if(this.value == "") $scope.msgValidacaoLogin = 'O campo "Login" é obrigatório';
+    });
+
+    $("#senha").on("input", function(){
+        var regex = /^[^\ ]+$/;
+        if(String(this.value).length) $scope.msgValidacaoSenha = 'O campo "Senha" deve conter de 6 a 15 caracteres';
+        if(!this.value.match(regex)) $scope.msgValidacaoSenha = 'O campo "Senha" não deve conter espaços em branco';
+        if(this.value == "") $scope.msgValidacaoSenha = 'O campo "Senha" é obrigatório';
+    });
+
+    $("#confirmar-senha").on("input", function(){
+        var regex = /^[^\ ]+$/;
+        if(String(this.value).length < 6) $scope.msgValidacaoConfirmacao = 'O campo "Confirmar Senha" deve conter de 6 a 15 caracteres';
+        if(!this.value.match(regex)) $scope.msgValidacaoConfirmacao = 'O campo "Confirmar Senha" não deve conter espaços em branco';
+        if(this.value == "") $scope.msgValidacaoConfirmacao = 'O campo "campo" é obrigatório';
+    });
 });
