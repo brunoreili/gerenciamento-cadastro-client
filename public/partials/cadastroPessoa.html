@@ -48,11 +48,11 @@
                 <label>Documento:<span class="alerta-required">*</span></label>
                 
                 <div ng-show="pessoa.id">
-                    <input type="text" id="fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" disabled/>
-                    <input type="text" id="juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" disabled/>
+                    <input type="text" id="pessoa-fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" disabled/>
+                    <input type="text" id="pessoa-juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" disabled/>
                 </div>
                 <div ng-show="!pessoa.id">
-                    <input type="text" class="form-control" ng-model="pessoa.documento" ng-show="!pessoa.tipoPessoa" disabled/>
+                    <input type="text" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
                     <div ng-show="pessoa.tipoPessoa">
                         <input type="text" id="fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" required/>
                         <input type="text" id="juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" required/>
