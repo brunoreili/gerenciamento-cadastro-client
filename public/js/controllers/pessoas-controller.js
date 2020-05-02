@@ -26,11 +26,11 @@ angular.module('gerenciamentocadastro').controller('PessoasController', function
             $scope.countErros++;
             $scope.mensagem = 'Não foi possível excluir a pessoa!';
         });
-    }
+    };
 
     $scope.fecharAlerta = function() {
         $scope.mensagem = '';
         $scope.countErros = 0;
-    }
+    };
 
 });

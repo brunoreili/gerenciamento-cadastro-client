@@ -2,6 +2,22 @@
     <h1 class="text-center">{{titulo}}</h1>
 </div>
 
+<div class="row justify-content-end enquadrado">
+    <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
 <form novalidate name="formulario" class="row" ng-submit="submeter()">
     <div class="col-md-6">        
         <div class="form-group">
@@ -43,25 +59,13 @@
             </div>
             <br/><span ng-show="formulario.$submitted && !operador.perfil" class="alerta-required">Perfil obrigatório</span>
         </div>
-
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="/operador/listar" class="btn btn-secondary">Voltar</a>
-        <hr/>
     </div>
-    <div class="col-md-6">
-        <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
-            <p>{{mensagem}}</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="col-md-12">
+        <div class="row justify-content-between" style="margin: 0rem;">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="/operador/listar" class="btn btn-secondary">Voltar</a>
         </div>
-        
-        <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <p>{{mensagem}}</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <hr/>
     </div>
 </form>
 
@@ -69,5 +73,8 @@
     .alerta-required {
         font-size: .8rem;
         color: red;
+    }
+    .enquadrado {
+        margin: 0rem;
     }
 </style>

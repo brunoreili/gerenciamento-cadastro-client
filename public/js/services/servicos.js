@@ -6,4 +6,8 @@ angular.module('servicos', [])
 
 .factory('pessoasUrl', function() {
     return 'http://localhost:8080/resources/pessoas/'
+})
+
+.factory('telefonesUrl', function() {
+    return 'http://localhost:8080/resources/telefones/'
 });

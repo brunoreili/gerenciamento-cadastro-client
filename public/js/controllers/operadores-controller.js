@@ -26,11 +26,11 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
             $scope.countErros++;
             $scope.mensagem = 'Não foi possível excluir o operador!';
         });
-    }
+    };
 
     $scope.fecharAlerta = function() {
         $scope.mensagem = '';
         $scope.countErros = 0;
-    }
+    };
     
 });

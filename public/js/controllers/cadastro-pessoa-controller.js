@@ -1,9 +1,13 @@
-angular.module('gerenciamentocadastro').controller('CadastroPessoaController', function($scope, $http, $routeParams, pessoasUrl) {
+angular.module('gerenciamentocadastro').controller('CadastroPessoaController', function($scope, $http, $routeParams, pessoasUrl, telefonesUrl) {
 
     $scope.titulo = 'Cadastar Pessoa'
     $scope.pessoa = {};
     $scope.mensagem = '';
     $scope.countErros = 0;
+    $scope.pessoaCadastrada = false;
+    $scope.addTelefone = false;
+    $scope.telefonesPendentes = false;
+    $scope.telefones = [];
 
     if($routeParams.pessoaId) {
         $http.get(pessoasUrl + $routeParams.pessoaId)
@@ -21,17 +25,21 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
     $scope.submeter = function() {        
         if($scope.formulario.$valid) {
             
-            var ObjPessoa = this.formatarObjPessoa();
-            if(!$scope.pessoa.id) {           
-                this.incluirPessoa(ObjPessoa);
-            } else {
+            var ObjPessoa = this.formatarObjPessoa($scope.pessoa);
+            if(!$scope.pessoa.id && $scope.addTelefone) {           
+                this.cadastrarPessoa(ObjPessoa, $scope.addTelefone);
+                this.adicionarTelefone();
+            }else if(!$scope.pessoa.id && !$scope.addTelefone) {
+                this.cadastrarPessoa(ObjPessoa, $scope.addTelefone);
+            }else if($scope.pessoa.id && !$scope.addTelefone) {
                 this.editarPessoa(ObjPessoa);
-            }
-        
+            } else {
+                this.adicionarTelefone();
+            }        
         }
     };
 
-    $scope.incluirPessoa = function(ObjPessoa) {
+    $scope.cadastrarPessoa = function(ObjPessoa, addTelefone) {
         $http({
             method: 'POST',
             url: pessoasUrl,
@@ -43,15 +51,40 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
                 'Accept': 'application/json'
             },
         })
-        .success(function() {
-            $scope.pessoa = {};
-            $scope.formulario.$submitted = null;
-            $scope.mensagem = "Pessoa incluída com sucesso!";
+        .success(function(idPessoa) {        
+            if(addTelefone) {
+                $scope.pessoa.id = idPessoa;
+                $scope.pessoaCadastrada = true;
+            } else {
+                this.finalizarCadastro();
+            }
         })  
         .error(function(erro) {
             console.log(erro);
             $scope.countErros++;
             $scope.mensagem = "Não foi possível incluir a pessoa!";
+        });
+    };
+
+    $scope.cadastrarTelefone = function(objTelefone) {
+        $http({
+            method: 'POST',
+            url: telefonesUrl,
+            data: objTelefone,
+            headers: {
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+        .success(function() {        
+            $scope.telefonesPendentes = false;
+        })  
+        .error(function(erro) {
+            console.log(erro);
+            $scope.countErros++;
+            $scope.mensagem = "Não foi possível incluir o telefone!";
         });
     };
 
@@ -67,22 +100,59 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         });
     };
 
-    $scope.formatarObjPessoa = function() {               
+    $scope.excluirTelefone = function(id) {
+        console.log(id);
+    };
+
+    $scope.adicionarTelefone = function(telefone) {
+        $scope.telefones.push(new Object({pendente: true}));
+        $scope.addTelefone = false;
+        $scope.telefonesPendentes = true;
+        $scope.formulario.$submitted = null;
+    };
+
+    $scope.incluirTelefone = function(telefone) {     
+        telefone.pendente = false;
+           
+        var objTelefone = this.formatarObjTelefone(telefone);
+        this.cadastrarTelefone(objTelefone);
+    };
+
+    $scope.finalizarCadastro = function() {
+        $scope.pessoa = {};
+        $scope.telefones = [];
+        $scope.formulario.$submitted = null;
+        $scope.mensagem = "Pessoa incluída com sucesso!";
+    }
+
+    $scope.formatarObjPessoa = function(pessoa) {               
         var ObjPessoa = {
-            nome: $scope.pessoa.nome,
-            documento: $scope.pessoa.documento,
-            nomeMae: $scope.pessoa.nomeMae,
-            nomePai: $scope.pessoa.nomePai,
+            nome: pessoa.nome,
+            documento: pessoa.documento,
+            nomeMae: pessoa.nomeMae,
+            nomePai: pessoa.nomePai,
             loginOperador: "Operador1",
-            tipoPessoa: parseInt($scope.pessoa.tipoPessoa),
-            dataNascimento: $scope.pessoa.dataNascimento            
+            tipoPessoa: parseInt(pessoa.tipoPessoa),
+            dataNascimento: pessoa.dataNascimento            
         };
 
         return ObjPessoa;
     };
 
+    $scope.formatarObjTelefone = function(telefone) {               
+        var ObjTelefone = {
+            loginOperador: "operador1",
+            ddd: "0" + telefone.ddd.toString(),
+            numero: telefone.numero,
+            tipo: parseInt(telefone.tipo),
+            pessoaId: $scope.pessoa.id            
+        };
+
+        return ObjTelefone;
+    };
+
     $scope.fecharAlerta = function() {
         $scope.mensagem = '';
         $scope.countErros = 0;
-    }
+    };
 })

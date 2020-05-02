@@ -79,5 +79,5 @@ angular.module('gerenciamentocadastro').controller('CadastroOperadorController',
     $scope.fecharAlerta = function() {
         $scope.mensagem = '';
         $scope.countErros = 0;
-    }
+    };
 })

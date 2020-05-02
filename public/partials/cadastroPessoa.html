@@ -2,8 +2,24 @@
     <h1 class="text-center">{{titulo}}</h1>
 </div>
 
-<form novalidate name="formulario" class="row" ng-submit="submeter()">
-    <div class="col-md-6">        
+<div class="row justify-content-end enquadrado">
+    <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<form novalidate name="formulario" class="row" ng-submit="submeter()">    
+    <div class="col-md-6"> <!-- Início Formulario de Pessoa -->        
         <div class="form-group">
             <label>Nome:<span class="alerta-required">*</span></label>
             <input type="text" name="nome" class="form-control" ng-model="pessoa.nome" required/>
@@ -48,25 +64,58 @@
             <label>Nome da Mãe:</label>
             <input type="text" name="nome-mae" class="form-control" ng-model="pessoa.nomeMae"/>        
         </div>
+
+        <div class="form-group">
+            <label>Adicionar Telefone:</label>
+            <button type="submit" class="btn btn-success" style="color: white;" ng-click="addTelefone = true" ng-disabled="formulario.$invalid || telefonesPendentes">+</button>
+        </div>
+    </div> <!-- Fim Formulario Pessoa -->
+    
+    <div class="col-md-6"> <!-- Início Formulario de Telefone -->
+        <label ng-show="telefones.length > 0" class="mb-1">Telefone(s):</label>
+        <div ng-repeat="telefone in telefones">
+            <div class="row enquadrado">
+                <div class="form-group col-2">
+                    <label>DDD:<span class="alerta-required">*</span></label>
+                    <input type="number" name="ddd" class="form-control" ng-model="telefone.ddd" required/>
+                    <span ng-show="formulario.$submitted && !telefone.ddd" class="alerta-required">DDD obrigatório</span>
+                </div>
+                <div class="form-group col-4">
+                    <label>Numero:<span class="alerta-required">*</span></label>
+                    <input type="number" name="numero" class="form-control" ng-model="telefone.numero" required/>
+                    <span ng-show="formulario.$submitted && !telefone.numero" class="alerta-required">Número obrigatório</span>
+                </div>
+                <div class="form-group col-4">
+                    <label>Tipo:<span class="alerta-required">*</span></label>
+                    <select class="form-control" ng-model="telefone.tipo" required>
+                      <option value="1">CELULAR</option>
+                      <option value="2">FIXO</option>
+                      <option value="3">COMERCIAL</option>
+                    </select>
+                    <span ng-show="formulario.$submitted && !telefone.tipo" class="alerta-required">Tipo obrigatório</span>
+                </div>
+
+                <div class="form-group col-2">
+                    <a class="btn btn-sm btn-warning excluir-telefone" style="color: black !important" 
+                        ng-click="excluirTelefone(telefone.id)" ng-if="formulario.$invalid && telefone.pendente">Cancelar</a>
+                    <a class="btn btn-sm btn-success excluir-telefone" 
+                        ng-click="incluirTelefone(telefone)" ng-if="!formulario.$invalid && telefone.pendente">Incluir</a>
+                    <a class="btn btn-sm btn-danger excluir-telefone" 
+                        ng-click="excluirTelefone(telefone.id)" ng-if="!telefone.pendente">Excluir</a>
+                </div>
+            </div>         
+        </div>
         
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="/pessoa/listar" class="btn btn-secondary">Voltar</a>
+    </div>  <!-- Fim Formulario Telefone -->
+
+    <div class="col-md-12">
+        <div class="row justify-content-between" style="margin: 0rem;">
+            <button type="submit" class="btn btn-primary" ng-if="!pessoaCadastrada">Salvar</button>
+            <a href="#" class="btn btn-primary" style="color: white" 
+                ng-click="finalizarCadastro()" ng-if="pessoaCadastrada">Salvar</a>
+            <a href="/pessoa/listar" class="btn btn-secondary">Voltar</a>
+        </div>
         <hr/>
-    </div>
-    <div class="col-md-6">
-        <div ng-show="mensagem.length && countErros <= 0" class="alert alert-info alert-dismissible fade show" role="alert">
-            <p>{{mensagem}}</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        
-        <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <p>{{mensagem}}</p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
     </div>
 </form>
 
@@ -74,5 +123,12 @@
     .alerta-required {
         font-size: .8rem;
         color: red;
+    }
+    .enquadrado {
+        margin: 0rem;
+    }
+    .excluir-telefone {
+        margin-top: 2rem;
+        color: white !important;
     }
 </style>
