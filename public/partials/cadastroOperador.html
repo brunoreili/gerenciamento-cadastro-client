@@ -19,7 +19,7 @@
 </div>
 
 <section class="table-responsive">
-    <form novalidate name="formulario" class="row enquadrado" ng-submit="submeter()">
+    <form novalidate name="formulario" class="row enquadrado" ng-submit="verificarRegrasEspeciais()">
         <div class="col-md-6">        
             <div class="form-group">
                 <label>Nome:<span class="alerta-required">*</span></label>
@@ -57,8 +57,12 @@
     
             <div class="form-group">
                 <label>Perfil:<span class="alerta-required">*</span>&nbsp;</label>
+                <div class="form-check form-check-inline" ng-show="operador.perfil == 1">
+                    <input type="radio" id="perfil" class="form-check-input" id="perfil-administrador" value="1" ng-model="operador.perfil" required>
+                    <label class="form-check-label" for="perfil-aministrador">Administrador</label>
+                </div>
                 <div class="form-check form-check-inline">
-                    <input type="radio" id="perfil" class="form-check-input" id="perfil-gerente" value="2" ng-model="operador.perfil" required>
+                    <input type="radio" id="perfil" class="form-check-input" id="perfil-gerente" value="2" ng-model="operador.perfil">
                     <label class="form-check-label" for="perfil-gerente">Gerente</label>
                 </div>
                 <div class="form-check form-check-inline">

@@ -25,12 +25,6 @@ angular.module('gerenciamentocadastro')
     };
 
     $scope.submeter = function() {
-        if($scope.operador.confirmarSenha != ""  && $scope.operador.confirmarSenha != $scope.operador.senha) {
-            $scope.operador.confirmarSenha = "";
-            $scope.formulario.$valid = false;
-            $scope.msgValidacaoConfirmacao = 'Campo "Confirmar Senha" e "Senha" são diferentes';           
-        }
-        
         if($scope.formulario.$valid) {            
             const objOperador = this.formatarObjOperador();
             if(!$scope.operador.id) {           
@@ -39,7 +33,7 @@ angular.module('gerenciamentocadastro')
                 this.editarOperador(objOperador);
             }
         }
-    };
+    }
 
     $scope.incluirOperador = function(objOperador) {
         $http({
@@ -86,6 +80,35 @@ angular.module('gerenciamentocadastro')
         };
 
         return objOperador;
+    };
+
+    $scope.verificarRegrasEspeciais = function() {
+        this.verificarConfirmacaoSenha();
+        this.verificarPerfilAdm();
+        this.submeter();
+    };
+
+    $scope.verificarConfirmacaoSenha = function() {
+        if($scope.operador.confirmarSenha != ""  && $scope.operador.confirmarSenha != $scope.operador.senha) {
+            $scope.operador.confirmarSenha = "";
+            $scope.formulario.$valid = false;
+            $scope.msgValidacaoConfirmacao = 'Campo "Confirmar Senha" e "Senha" são diferentes';           
+        }
+    };
+    
+    $scope.verificarPerfilAdm = function() {
+        if($scope.operador.perfil = 1) {
+            let itemValidado = false;
+            
+            itemValidado = $scope.operador.confirmarSenha ? true : false;
+            itemValidado = $scope.operador.id ? true : false;
+            itemValidado = $scope.operador.login ? true : false;
+            itemValidado = $scope.operador.nome ? true : false;
+            itemValidado = $scope.operador.perfil ? true : false;
+            itemValidado = $scope.operador.senha ? true : false;
+
+            $scope.formulario.$valid = itemValidado;
+        }
     };
 
     $scope.fecharAlerta = function() {
