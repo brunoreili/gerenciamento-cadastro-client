@@ -33,12 +33,12 @@
                 <label>Tipo de Pessoa:<span class="alerta-required">*</span>&nbsp;</label>
                 <div class="form-check form-check-inline">
                     <input type="radio" class="form-check-input" id="pessoa-fisica" value="1" 
-                        ng-model="pessoa.tipoPessoa" ng-click="pessoa.documento = ''" required>
-                    <label class="form-check-label" for="pessoa-fisica">Frísica</label>
+                        ng-model="pessoa.tipoPessoa" required>
+                    <label class="form-check-label" for="pessoa-fisica">Física</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-juridica" value="2"
-                        ng-model="pessoa.tipoPessoa" ng-click="pessoa.documento = ''">
+                        ng-model="pessoa.tipoPessoa">
                     <label class="form-check-label" for="pessoa-juridica">Jurídica</label>
                 </div>
                 <br/><span ng-show="formulario.$submitted && !pessoa.tipoPessoa" class="alerta-required">{{msgValidacaoTipoPessoa}}</span>
@@ -48,11 +48,11 @@
                 <label>Documento:<span class="alerta-required">*</span></label>
                 
                 <div ng-show="pessoa.id">
-                    <input type="text" id="pessoa-fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" disabled/>
-                    <input type="text" id="pessoa-juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" disabled/>
+                    <input type="text" id="fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" disabled/>
+                    <input type="text" id="juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" disabled/>
                 </div>
                 <div ng-show="!pessoa.id">
-                    <input type="text" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
+                    <input type="text" class="form-control" ng-model="pessoa.documento" ng-show="!pessoa.tipoPessoa" disabled/>
                     <div ng-show="pessoa.tipoPessoa">
                         <input type="text" id="fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" required/>
                         <input type="text" id="juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" required/>
