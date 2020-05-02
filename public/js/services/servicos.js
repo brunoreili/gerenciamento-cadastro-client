@@ -1,5 +1,9 @@
 angular.module('servicos', [])
 
+.factory('loginUrl', function() {
+    return 'http://localhost:8080/resources/auth/'
+})
+
 .factory('operadoresUrl', function() {
     return 'http://localhost:8080/resources/operadores/'
 })

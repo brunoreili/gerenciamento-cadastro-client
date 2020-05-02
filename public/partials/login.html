@@ -1,1 +1,34 @@
-<h1>Tela de login</h1>
+<div class="jumbotron">
+    <h1 class="text-center">Sistema de Gerenciamento de Cadastro</h1>
+</div>
+
+<div class="row justify-content-end enquadrado">   
+    <div ng-show="mensagem.length && countErros > 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <p>{{mensagem}}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="fecharAlerta()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<section class="table-responsive">
+    <h1 class="text-center">Login</h1>
+    <p class="alert-danger"></p>
+    <form ng-submit="autenticar()">
+        <div class="from-group">
+            <label>Login</label>
+            <input type="text" class="form-control" ng-model="usuario.login">
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" class="form-control" ng-model="usuario.senha">
+        </div>
+        <input type="submit" value="Entrar" class="btn btn-primary">
+    </form>
+</section>
+
+<style>
+    .enquadrado {
+        margin: 0rem;
+    }
+</style>

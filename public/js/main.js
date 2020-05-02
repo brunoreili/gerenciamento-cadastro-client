@@ -5,6 +5,7 @@ angular.module('gerenciamentocadastro', ['ngRoute', 'servicos'])
 
     $routeProvider.when('/login', {
         templateUrl: 'partials/login.html',
+        controller: 'LoginController'
     });
 
     $routeProvider.when('/operador/listar', {
