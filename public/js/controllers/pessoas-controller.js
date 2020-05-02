@@ -1,8 +1,9 @@
-angular.module('gerenciamentocadastro').controller('PessoasController', function($scope, $http, pessoasUrl) {
+angular.module('gerenciamentocadastro')
+    .controller('PessoasController', function($scope, $http, pessoasUrl) {
 
-    $scope.pessoas = [];
-    $scope.mensagem = '';
     $scope.countErros = 0;
+    $scope.mensagem = '';
+    $scope.pessoas = [];
 
     $http.get(pessoasUrl)
     .success(function(pessoas) {

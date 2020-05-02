@@ -18,11 +18,12 @@
     </div>
 </div>
 
-<div class="mb-2" style="text-align: right">
-    <a href="/pessoa/cadastrar" class="btn btn-primary">Nova Pessoa</a>
-</div>
 
-<div class="table-responsive">
+<section class="table-responsive">
+    <div class="mb-2" style="text-align: right">
+        <a href="/pessoa/cadastrar" class="btn btn-primary">Nova Pessoa</a>
+    </div>
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -47,6 +48,7 @@
                 <td>{{pessoa.loginOperador}}</td>
                 <td> 
                     <div class="btn-group">
+                        <a href="#" class="btn btn-sm btn-warning">Visualizar</a>
                         <a href="/pessoa/editar/{{pessoa.id}}" class="btn btn-sm btn-success">Editar</a>
                         <button class="btn btn-sm btn-danger" ng-click="excluir(pessoa)">Excluir</button>
                     </div>
@@ -55,7 +57,7 @@
         </tbody>
     </table>
     <hr/>
-</div>
+</section>
 
 <style>
     .enquadrado {

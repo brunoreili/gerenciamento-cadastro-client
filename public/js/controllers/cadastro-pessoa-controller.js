@@ -1,13 +1,14 @@
-angular.module('gerenciamentocadastro').controller('CadastroPessoaController', function($scope, $http, $routeParams, pessoasUrl, telefonesUrl) {
+angular.module('gerenciamentocadastro')
+    .controller('CadastroPessoaController', function($scope, $http, $routeParams, $location, pessoasUrl, telefonesUrl) {
 
+    $scope.countErros = 0;
+    $scope.mensagem = '';
     $scope.titulo = 'Cadastar Pessoa'
     $scope.pessoa = {};
-    $scope.mensagem = '';
-    $scope.countErros = 0;
+    $scope.telefones = [];
     $scope.pessoaCadastrada = false;
     $scope.addTelefone = false;
     $scope.telefonesPendentes = false;
-    $scope.telefones = [];
 
     if($routeParams.pessoaId) {
         $http.get(pessoasUrl + $routeParams.pessoaId)
@@ -18,7 +19,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         })
         .error(function(error) {
             console.log(error);
-            window.location.href = "/pessoa/listar";
+            $location.path('/pessoa/listar');
         });
     };
 
@@ -81,7 +82,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
     $scope.voltarExcluindoPessoa = function() {      
         $http.delete(pessoasUrl + $scope.pessoa.id)
         .success(function() {
-            window.location.href = "/pessoa/listar";
+            $location.path('/pessoa/listar');
         })
         .error(function(error) {
             console.log(error);
@@ -185,4 +186,4 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         $scope.mensagem = '';
         $scope.countErros = 0;
     };
-})
+});

@@ -18,121 +18,123 @@
     </div>
 </div>
 
-<form novalidate name="formulario" class="row" ng-submit="submeter()">    
-    <div class="col-md-6"> <!-- Início Formulario de Pessoa -->        
-        <div class="form-group">
-            <label>Nome:<span class="alerta-required">*</span></label>
-            <input type="text" name="nome" class="form-control" ng-model="pessoa.nome" required/>
-            <span ng-show="formulario.$submitted && !pessoa.nome" class="alerta-required">Nome obrigatório</span>
-        </div>
-
-        <div class="form-group">
-            <label>Tipo de Pessoa:<span class="alerta-required">*</span>&nbsp;</label>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-fisica" value="1" ng-model="pessoa.tipoPessoa" required>
-                <label class="form-check-label" for="pessoa-fisica">Frísica</label>
+<section class="table-responsive">
+    <form novalidate name="formulario" class="row enquadrado" ng-submit="submeter()">    
+        <div class="col-md-6"> <!-- Início Formulario de Pessoa -->        
+            <div class="form-group">
+                <label>Nome:<span class="alerta-required">*</span></label>
+                <input type="text" name="nome" class="form-control" ng-model="pessoa.nome" required/>
+                <span ng-show="formulario.$submitted && !pessoa.nome" class="alerta-required">Nome obrigatório</span>
             </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-juridica" value="2" ng-model="pessoa.tipoPessoa">
-                <label class="form-check-label" for="pessoa-juridica">Jurídica</label>
-            </div>
-            <br/><span ng-show="formulario.$submitted && !pessoa.tipoPessoa" class="alerta-required">Tipo de Pessoa obrigatória</span>
-        </div>
-
-        <div class="form-group">
-            <label>Documento:<span class="alerta-required">*</span></label>
-            <div ng-if="pessoa.id">
-                <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" disabled/>
-                <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" disabled/>
-            </div>
-            <div ng-if="!pessoa.id">
-                <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
-                <div ng-if="pessoa.tipoPessoa">
-                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" required/>
-                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" required/>
-                </div>
-            </div>
-            <span ng-show="formulario.$submitted && !pessoa.documento" class="alerta-required">Documento obrigatório</span>
-        </div>
-        
-        <div class="form-group">
-            <label>Data de Nascimento:<span class="alerta-required">*</span></label>
-            <input type="date" name="data-nascimento" class="form-control" ng-model="pessoa.dataNascimento" required/>
-            <span ng-show="formulario.$submitted && !pessoa.dataNascimento" class="alerta-required">Documento obrigatório</span>
-        </div>
-
-        <div class="form-group">
-            <label>Nome do Pai:</label>
-            <input type="text" name="nome-pai" class="form-control" ng-model="pessoa.nomePai"/>        
-        </div>
-
-        <div class="form-group">
-            <label>Nome da Mãe:</label>
-            <input type="text" name="nome-mae" class="form-control" ng-model="pessoa.nomeMae"/>        
-        </div>
-
-        <div class="form-group">
-            <label>Adicionar Telefone:</label>
-            <button type="submit" class="btn btn-success" style="color: white;" ng-click="addTelefone = true" ng-disabled="formulario.$invalid || telefonesPendentes">+</button>
-        </div>
-    </div> <!-- Fim Formulario Pessoa -->
     
-    <div class="col-md-6"> <!-- Início Formulario de Telefone -->
-        <label ng-show="telefones.length > 0" class="mb-1">Telefone(s):</label>
-        <div ng-repeat="telefone in telefones">
-            <div class="row enquadrado">
-                <div class="form-group col-2">
-                    <label>DDD:<span class="alerta-required">*</span></label>
-                    <input type="number" name="ddd" class="form-control" ng-model="telefone.ddd" ng-if="telefone.pendente" required/>
-                    <input type="number" name="ddd" class="form-control" ng-model="telefone.ddd" ng-if="!telefone.pendente" disabled/>
-                    <span ng-show="formulario.$submitted && !telefone.ddd" class="alerta-required">DDD obrigatório</span>
+            <div class="form-group">
+                <label>Tipo de Pessoa:<span class="alerta-required">*</span>&nbsp;</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-fisica" value="1" ng-model="pessoa.tipoPessoa" required>
+                    <label class="form-check-label" for="pessoa-fisica">Frísica</label>
                 </div>
-                <div class="form-group col-4">
-                    <label>Numero:<span class="alerta-required">*</span></label>
-                    <input type="number" name="numero" class="form-control" ng-model="telefone.numero" ng-if="telefone.pendente" required/>
-                    <input type="number" name="numero" class="form-control" ng-model="telefone.numero" ng-if="!telefone.pendente" disabled/>
-                    <span ng-show="formulario.$submitted && !telefone.numero" class="alerta-required">Número obrigatório</span>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-juridica" value="2" ng-model="pessoa.tipoPessoa">
+                    <label class="form-check-label" for="pessoa-juridica">Jurídica</label>
                 </div>
-                <div class="form-group col-4">
-                    <label>Tipo:<span class="alerta-required">*</span></label>
-                    <select class="form-control" ng-model="telefone.tipo" ng-show="telefone.pendente" required>
-                        <option value="1">CELULAR</option>
-                        <option value="2">FIXO</option>
-                        <option value="3">COMERCIAL</option>
-                    </select>
-                    <select class="form-control" ng-model="telefone.tipo" ng-show="!telefone.pendente" disabled>
-                        <option value="1">CELULAR</option>
-                        <option value="2">FIXO</option>
-                        <option value="3">COMERCIAL</option>
-                    </select>
-                    <span ng-show="formulario.$submitted && !telefone.tipo" class="alerta-required">Tipo obrigatório</span>
+                <br/><span ng-show="formulario.$submitted && !pessoa.tipoPessoa" class="alerta-required">Tipo de Pessoa obrigatória</span>
+            </div>
+    
+            <div class="form-group">
+                <label>Documento:<span class="alerta-required">*</span></label>
+                <div ng-if="pessoa.id">
+                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" disabled/>
+                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" disabled/>
                 </div>
-
-                <div class="form-group col-2">
-                    <a class="btn btn-sm btn-warning btn-telefone" style="color: black !important" 
-                        ng-click="removerTelefone(telefone)" ng-if="formulario.$invalid && telefone.pendente">Cancelar</a>
-                    <a class="btn btn-sm btn-success btn-telefone" 
-                        ng-click="incluirTelefone(telefone)" ng-if="!formulario.$invalid && telefone.pendente">Incluir</a>
-                    <a class="btn btn-sm btn-danger btn-telefone" 
-                        ng-click="excluirTelefone(telefone)" ng-if="!telefone.pendente">Excluir</a>
+                <div ng-if="!pessoa.id">
+                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
+                    <div ng-if="pessoa.tipoPessoa">
+                        <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" required/>
+                        <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" required/>
+                    </div>
                 </div>
-            </div>         
-        </div>
+                <span ng-show="formulario.$submitted && !pessoa.documento" class="alerta-required">Documento obrigatório</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Data de Nascimento:<span class="alerta-required">*</span></label>
+                <input type="date" name="data-nascimento" class="form-control" ng-model="pessoa.dataNascimento" required/>
+                <span ng-show="formulario.$submitted && !pessoa.dataNascimento" class="alerta-required">Documento obrigatório</span>
+            </div>
+    
+            <div class="form-group">
+                <label>Nome do Pai:</label>
+                <input type="text" name="nome-pai" class="form-control" ng-model="pessoa.nomePai"/>        
+            </div>
+    
+            <div class="form-group">
+                <label>Nome da Mãe:</label>
+                <input type="text" name="nome-mae" class="form-control" ng-model="pessoa.nomeMae"/>        
+            </div>
+    
+            <div class="form-group">
+                <label>Adicionar Telefone:</label>
+                <button type="submit" class="btn btn-success" style="color: white;" ng-click="addTelefone = true" ng-disabled="formulario.$invalid || telefonesPendentes">+</button>
+            </div>
+        </div> <!-- Fim Formulario Pessoa -->
         
-    </div>  <!-- Fim Formulario Telefone -->
-
-    <div class="col-md-12">
-        <div class="row justify-content-between" style="margin: 0rem;" ng-if="!pessoaCadastrada">
-            <button type="submit" class="btn btn-primary" >Salvar</button>
-            <a href="/pessoa/listar" class="btn btn-secondary">Voltar</a>
+        <div class="col-md-6"> <!-- Início Formulario de Telefone -->
+            <label ng-show="telefones.length > 0" class="mb-1">Telefone(s):</label>
+            <div ng-repeat="telefone in telefones">
+                <div class="row enquadrado">
+                    <div class="form-group col-2">
+                        <label>DDD:<span class="alerta-required">*</span></label>
+                        <input type="number" name="ddd" class="form-control" ng-model="telefone.ddd" ng-if="telefone.pendente" required/>
+                        <input type="number" name="ddd" class="form-control" ng-model="telefone.ddd" ng-if="!telefone.pendente" disabled/>
+                        <span ng-show="formulario.$submitted && !telefone.ddd" class="alerta-required">DDD obrigatório</span>
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Numero:<span class="alerta-required">*</span></label>
+                        <input type="number" name="numero" class="form-control" ng-model="telefone.numero" ng-if="telefone.pendente" required/>
+                        <input type="number" name="numero" class="form-control" ng-model="telefone.numero" ng-if="!telefone.pendente" disabled/>
+                        <span ng-show="formulario.$submitted && !telefone.numero" class="alerta-required">Número obrigatório</span>
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Tipo:<span class="alerta-required">*</span></label>
+                        <select class="form-control" ng-model="telefone.tipo" ng-show="telefone.pendente" required>
+                            <option value="1">CELULAR</option>
+                            <option value="2">FIXO</option>
+                            <option value="3">COMERCIAL</option>
+                        </select>
+                        <select class="form-control" ng-model="telefone.tipo" ng-show="!telefone.pendente" disabled>
+                            <option value="1">CELULAR</option>
+                            <option value="2">FIXO</option>
+                            <option value="3">COMERCIAL</option>
+                        </select>
+                        <span ng-show="formulario.$submitted && !telefone.tipo" class="alerta-required">Tipo obrigatório</span>
+                    </div>
+    
+                    <div class="form-group col-2">
+                        <a class="btn btn-sm btn-warning btn-telefone" style="color: black !important" 
+                            ng-click="removerTelefone(telefone)" ng-if="formulario.$invalid && telefone.pendente">Cancelar</a>
+                        <a class="btn btn-sm btn-success btn-telefone" 
+                            ng-click="incluirTelefone(telefone)" ng-if="!formulario.$invalid && telefone.pendente">Incluir</a>
+                        <a class="btn btn-sm btn-danger btn-telefone" 
+                            ng-click="excluirTelefone(telefone)" ng-if="!telefone.pendente">Excluir</a>
+                    </div>
+                </div>         
+            </div>
+            
+        </div>  <!-- Fim Formulario Telefone -->
+    
+        <div class="col-md-12">
+            <div class="row justify-content-between" style="margin: 0rem;" ng-if="!pessoaCadastrada">
+                <button type="submit" class="btn btn-primary" >Salvar</button>
+                <a href="/pessoa/listar" class="btn btn-secondary">Voltar</a>
+            </div>
+            <div class="row justify-content-between" style="margin: 0rem;" ng-if="pessoaCadastrada">
+                <a href="#" class="btn btn-primary" style="color: white" ng-click="finalizarCadastro()">Salvar</a>
+                <a href="#" class="btn btn-secondary" ng-click="voltarExcluindoPessoa()">Voltar</a>
+            </div>
+            <hr/>
         </div>
-        <div class="row justify-content-between" style="margin: 0rem;" ng-if="pessoaCadastrada">
-            <a href="#" class="btn btn-primary" style="color: white" ng-click="finalizarCadastro()">Salvar</a>
-            <a href="#" class="btn btn-secondary" ng-click="voltarExcluindoPessoa()">Voltar</a>
-        </div>
-        <hr/>
-    </div>
-</form>
+    </form>
+</section>
 
 <style>
     .alerta-required {

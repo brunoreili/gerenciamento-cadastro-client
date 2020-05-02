@@ -1,8 +1,9 @@
-angular.module('gerenciamentocadastro').controller('OperadoresController', function($scope, $http, operadoresUrl) {
+angular.module('gerenciamentocadastro')
+    .controller('OperadoresController', function($scope, $http, operadoresUrl) {
 
-    $scope.operadores = [];
-    $scope.mensagem = '';
     $scope.countErros = 0;
+    $scope.mensagem = '';
+    $scope.operadores = [];
 
     $http.get(operadoresUrl)
     .success(function(operadores) {

@@ -18,54 +18,56 @@
     </div>
 </div>
 
-<form novalidate name="formulario" class="row" ng-submit="submeter()">
-    <div class="col-md-6">        
-        <div class="form-group">
-            <label>Nome:<span class="alerta-required">*</span></label>
-            <input type="text" name="nome" class="form-control" ng-model="operador.nome" required/>
-            <span ng-show="formulario.$submitted && !operador.nome" class="alerta-required">Nome obrigatório</span>
-        </div>
-
-        <div class="form-group">
-            <label>Login:<span class="alerta-required">*</span></label>
-            <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="!operador.id" required/>
-            <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="operador.id" disabled/>
-            <span ng-show="formulario.$submitted && !operador.login" class="alerta-required"> Login obrigatório</span>
-        </div>
-
-        <div class="form-group">
-            <label>Senha:<span class="alerta-required">*</span></label>
-            <input type="password" name="senha" class="form-control" ng-model="operador.senha" required/>
-            <span ng-show="formulario.$submitted && !operador.senha" class="alerta-required">Senha obrigatória</span>
-        </div>
-        
-        <div class="form-group">
-            <label>Confirmar Senha:<span class="alerta-required">*</span></label>
-            <input type="password" name="confirmarSenha" class="form-control" ng-model="operador.confirmarSenha" required/>
-            <span ng-show="formulario.$submitted && !operador.confirmarSenha" class="alerta-required">Confirmação obrigatória</span>
-        </div>
-
-        <div class="form-group">
-            <label>Perfil:<span class="alerta-required">*</span>&nbsp;</label>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="perfil" class="form-check-input" id="perfil-gerente" value="1" ng-model="operador.perfil" required>
-                <label class="form-check-label" for="perfil-gerente">Gerente</label>
+<section class="table-responsive">
+    <form novalidate name="formulario" class="row enquadrado" ng-submit="submeter()">
+        <div class="col-md-6">        
+            <div class="form-group">
+                <label>Nome:<span class="alerta-required">*</span></label>
+                <input type="text" name="nome" class="form-control" ng-model="operador.nome" required/>
+                <span ng-show="formulario.$submitted && !operador.nome" class="alerta-required">Nome obrigatório</span>
             </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" name="perfil" class="form-check-input" id="perfil-analista" value="2" ng-model="operador.perfil">
-                <label class="form-check-label" for="perfil-analista">Analista</label>
+    
+            <div class="form-group">
+                <label>Login:<span class="alerta-required">*</span></label>
+                <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="!operador.id" required/>
+                <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="operador.id" disabled/>
+                <span ng-show="formulario.$submitted && !operador.login" class="alerta-required"> Login obrigatório</span>
             </div>
-            <br/><span ng-show="formulario.$submitted && !operador.perfil" class="alerta-required">Perfil obrigatório</span>
+    
+            <div class="form-group">
+                <label>Senha:<span class="alerta-required">*</span></label>
+                <input type="password" name="senha" class="form-control" ng-model="operador.senha" required/>
+                <span ng-show="formulario.$submitted && !operador.senha" class="alerta-required">Senha obrigatória</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Confirmar Senha:<span class="alerta-required">*</span></label>
+                <input type="password" name="confirmarSenha" class="form-control" ng-model="operador.confirmarSenha" required/>
+                <span ng-show="formulario.$submitted && !operador.confirmarSenha" class="alerta-required">Confirmação obrigatória</span>
+            </div>
+    
+            <div class="form-group">
+                <label>Perfil:<span class="alerta-required">*</span>&nbsp;</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="perfil" class="form-check-input" id="perfil-gerente" value="1" ng-model="operador.perfil" required>
+                    <label class="form-check-label" for="perfil-gerente">Gerente</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="perfil" class="form-check-input" id="perfil-analista" value="2" ng-model="operador.perfil">
+                    <label class="form-check-label" for="perfil-analista">Analista</label>
+                </div>
+                <br/><span ng-show="formulario.$submitted && !operador.perfil" class="alerta-required">Perfil obrigatório</span>
+            </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="row justify-content-between" style="margin: 0rem;">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="/operador/listar" class="btn btn-secondary">Voltar</a>
+        <div class="col-md-12">
+            <div class="row justify-content-between" style="margin: 0rem;">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="/operador/listar" class="btn btn-secondary">Voltar</a>
+            </div>
+            <hr/>
         </div>
-        <hr/>
-    </div>
-</form>
+    </form>
+</section>
 
 <style>
     .alerta-required {
