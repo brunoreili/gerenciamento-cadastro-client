@@ -160,6 +160,7 @@ angular.module('gerenciamentocadastro')
         $scope.pessoa = {};
         $scope.telefones = [];
         $scope.formulario.$submitted = null;
+        $scope.countErros = 0;
         $scope.mensagem = "Pessoa incluída com sucesso!";
     }
 
