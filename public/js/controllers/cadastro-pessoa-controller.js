@@ -22,6 +22,7 @@ angular.module('gerenciamentocadastro')
         .success(function(pessoa) {
             $scope.pessoa = pessoa;
             $scope.pessoa.dataNascimento = new Date(pessoa.dataNascimento);
+            $scope.telefones = pessoa.telefones;
             $scope.titulo = 'Editar Pessoa'
         })
         .error(function(error) {
