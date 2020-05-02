@@ -97,18 +97,18 @@ angular.module('gerenciamentocadastro')
     };
     
     $scope.verificarPerfilAdm = function() {
-        if($scope.operador.perfil = 1) {
-            let itemValidado = false;
+        // if($scope.operador.perfil = 1) {
+        //     let itemValidado = false;
             
-            itemValidado = $scope.operador.confirmarSenha ? true : false;
-            itemValidado = $scope.operador.id ? true : false;
-            itemValidado = $scope.operador.login ? true : false;
-            itemValidado = $scope.operador.nome ? true : false;
-            itemValidado = $scope.operador.perfil ? true : false;
-            itemValidado = $scope.operador.senha ? true : false;
+        //     itemValidado = $scope.operador.confirmarSenha ? true : false;
+        //     itemValidado = $scope.operador.id ? true : false;
+        //     itemValidado = $scope.operador.login ? true : false;
+        //     itemValidado = $scope.operador.nome ? true : false;
+        //     itemValidado = $scope.operador.perfil ? true : false;
+        //     itemValidado = $scope.operador.senha ? true : false;
 
-            $scope.formulario.$valid = itemValidado;
-        }
+        //     $scope.formulario.$valid = itemValidado;
+        // }
     };
 
     $scope.fecharAlerta = function() {
