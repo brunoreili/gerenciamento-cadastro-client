@@ -19,57 +19,68 @@
 </div>
 
 <section class="table-responsive">
-    <form novalidate name="formulario" class="row enquadrado" ng-submit="submeter()">    
+    <form novalidate name="formulario" class="row enquadrado" ng-submit="verificarRegrasEspeciais()">    
         <div class="col-md-6"> <!-- Início Formulario de Pessoa -->        
             <div class="form-group">
                 <label>Nome:<span class="alerta-required">*</span></label>
-                <input type="text" name="nome" class="form-control" ng-model="pessoa.nome" required/>
-                <span ng-show="formulario.$submitted && !pessoa.nome" class="alerta-required">Nome obrigatório</span>
+                <input type="text" id="nome" class="form-control" 
+                    maxlength="100" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$"
+                    ng-model="pessoa.nome" required/>
+                <span ng-show="formulario.$submitted && !pessoa.nome" class="alerta-required">{{msgValidacaoNome}}</span>
             </div>
     
             <div class="form-group">
                 <label>Tipo de Pessoa:<span class="alerta-required">*</span>&nbsp;</label>
                 <div class="form-check form-check-inline">
-                    <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-fisica" value="1" ng-model="pessoa.tipoPessoa" required>
+                    <input type="radio" class="form-check-input" id="pessoa-fisica" value="1" 
+                        ng-model="pessoa.tipoPessoa" ng-click="pessoa.documento = ''" required>
                     <label class="form-check-label" for="pessoa-fisica">Frísica</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-juridica" value="2" ng-model="pessoa.tipoPessoa">
+                    <input type="radio" name="tipo-pessoa" class="form-check-input" id="pessoa-juridica" value="2"
+                        ng-model="pessoa.tipoPessoa" ng-click="pessoa.documento = ''">
                     <label class="form-check-label" for="pessoa-juridica">Jurídica</label>
                 </div>
-                <br/><span ng-show="formulario.$submitted && !pessoa.tipoPessoa" class="alerta-required">Tipo de Pessoa obrigatória</span>
+                <br/><span ng-show="formulario.$submitted && !pessoa.tipoPessoa" class="alerta-required">{{msgValidacaoTipoPessoa}}</span>
             </div>
     
             <div class="form-group">
                 <label>Documento:<span class="alerta-required">*</span></label>
-                <div ng-if="pessoa.id">
-                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" disabled/>
-                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" disabled/>
+                
+                <div ng-show="pessoa.id">
+                    <input type="text" id="pessoa-fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" disabled/>
+                    <input type="text" id="pessoa-juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" disabled/>
                 </div>
-                <div ng-if="!pessoa.id">
-                    <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
-                    <div ng-if="pessoa.tipoPessoa">
-                        <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 1" required/>
-                        <input type="text" name="documento" class="form-control" ng-model="pessoa.documento" ng-if="pessoa.tipoPessoa == 2" required/>
+                <div ng-show="!pessoa.id">
+                    <input type="text" class="form-control" ng-model="pessoa.documento" ng-if="!pessoa.tipoPessoa" disabled/>
+                    <div ng-show="pessoa.tipoPessoa">
+                        <input type="text" id="fisica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 1" required/>
+                        <input type="text" id="juridica" class="form-control" ng-model="pessoa.documento" ng-show="pessoa.tipoPessoa == 2" required/>
                     </div>
                 </div>
-                <span ng-show="formulario.$submitted && !pessoa.documento" class="alerta-required">Documento obrigatório</span>
+                <span ng-show="formulario.$submitted && !pessoa.documento" class="alerta-required">{{msgValidacaoDocumento}}</span>
             </div>
             
             <div class="form-group">
                 <label>Data de Nascimento:<span class="alerta-required">*</span></label>
-                <input type="date" name="data-nascimento" class="form-control" ng-model="pessoa.dataNascimento" required/>
-                <span ng-show="formulario.$submitted && !pessoa.dataNascimento" class="alerta-required">Documento obrigatório</span>
+                <input type="date" id="data-nascimento" class="form-control" ng-model="pessoa.dataNascimento" required/>
+                <span ng-show="formulario.$submitted && !pessoa.dataNascimento" class="alerta-required">{{msgValidacaoDataNascimento}}</span>
             </div>
     
             <div class="form-group">
                 <label>Nome do Pai:</label>
-                <input type="text" name="nome-pai" class="form-control" ng-model="pessoa.nomePai"/>        
+                <input type="text" id="nome-pai" class="form-control" 
+                    maxlength="100" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" 
+                    ng-model="pessoa.nomePai"/>
+                <span ng-show="msgValidacaoPai" class="alerta-required">{{msgValidacaoPai}}</span> 
             </div>
     
             <div class="form-group">
                 <label>Nome da Mãe:</label>
-                <input type="text" name="nome-mae" class="form-control" ng-model="pessoa.nomeMae"/>        
+                <input type="text" id="nome-mae" class="form-control" 
+                    maxlength="100" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$"
+                    ng-model="pessoa.nomeMae"/>
+                <span ng-show="msgValidacaoMae" class="alerta-required">{{msgValidacaoMae}}</span>     
             </div>
     
             <div class="form-group">
@@ -148,4 +159,17 @@
         margin-top: 2rem;
         color: white !important;
     }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        background: transparent;
+        bottom: 0;
+        color: transparent;
+        cursor: pointer;
+        height: auto;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+    }
 </style>
+

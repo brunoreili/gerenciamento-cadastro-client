@@ -118,7 +118,7 @@ angular.module('gerenciamentocadastro')
 
     $("#nome").on("input", function(){
         var regex = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
-        if(!this.value.match(regex)) $scope.msgValidacaoNome = 'O campo "Nome" não deve possuir apenas números';
+        if(!this.value.match(regex)) $scope.msgValidacaoNome = 'O campo "Nome" não deve conter números';
         if(this.value == "") $scope.msgValidacaoNome = 'O campo "Nome" é obrigatório';
     });
 

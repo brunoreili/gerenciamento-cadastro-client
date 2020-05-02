@@ -10,6 +10,13 @@ angular.module('gerenciamentocadastro')
     $scope.addTelefone = false;
     $scope.telefonesPendentes = false;
 
+    $scope.msgValidacaoNome = 'O campo "Nome" é obrigatório';
+    $scope.msgValidacaoTipoPessoa = 'O campo "Tipo de Pessoa" é obrigatório';
+    $scope.msgValidacaoDocumento = 'O campo "Documento" é obrigatório';
+    $scope.msgValidacaoDataNascimento = 'O campo "Data de Nascimento" é obrigatório';
+    $scope.msgValidacaoPai = '';
+    $scope.msgValidacaoMae = '';
+
     if($routeParams.pessoaId) {
         $http.get(pessoasUrl + $routeParams.pessoaId)
         .success(function(pessoa) {
@@ -24,8 +31,7 @@ angular.module('gerenciamentocadastro')
     };
 
     $scope.submeter = function() {        
-        if($scope.formulario.$valid) {
-            
+        if($scope.formulario.$valid) {            
             const ObjPessoa = this.formatarObjPessoa($scope.pessoa);
             if(!$scope.pessoa.id && $scope.addTelefone) {           
                 this.cadastrarPessoa(ObjPessoa, $scope.addTelefone);
@@ -182,8 +188,39 @@ angular.module('gerenciamentocadastro')
         return ObjTelefone;
     };
 
+    $scope.verificarRegrasEspeciais = function() {
+        $scope.formulario.$valid = msgValidacaoPai ? false : true;
+        $scope.formulario.$valid = msgValidacaoMae ? false : true;
+        this.submeter();
+    }
+
     $scope.fecharAlerta = function() {
         $scope.mensagem = '';
         $scope.countErros = 0;
     };
+
+    $('#fisica').mask('000.000.000-00');
+    $('#juridica').mask('000.000.000/0000-00');
+
+    $('[type="date"]#data-nascimento').prop('max', function(){
+        return new Date().toJSON().split('T')[0];
+    });
+    
+    $("#nome").on("input", function(){
+        var regex = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+        if(!this.value.match(regex)) $scope.msgValidacaoNome = 'O campo "Nome" não deve conter números';
+        if(this.value == "") $scope.msgValidacaoNome = 'O campo "Nome" é obrigatório';
+    });
+
+    $("#nome-pai").on("input", function(){
+        var regex = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+        if(!this.value.match(regex)) $scope.msgValidacaoPai = 'O campo "Nome do Pai" não deve conter números';
+        if(this.value == "") $scope.msgValidacaoPai = '';
+    });
+
+    $("#nome-mae").on("input", function(){
+        var regex = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+        if(!this.value.match(regex)) $scope.msgValidacaoMae = 'O campo "Nome da Mãe" não deve conter números';
+        if(this.value == "") $scope.msgValidacaoMae = '';
+    });
 });
