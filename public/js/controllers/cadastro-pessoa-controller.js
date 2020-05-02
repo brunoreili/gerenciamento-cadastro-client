@@ -190,8 +190,8 @@ angular.module('gerenciamentocadastro')
     };
 
     $scope.verificarRegrasEspeciais = function() {
-        $scope.formulario.$valid = msgValidacaoPai ? false : true;
-        $scope.formulario.$valid = msgValidacaoMae ? false : true;
+        $scope.formulario.$valid = $scope.msgValidacaoPai ? false : true;
+        $scope.formulario.$valid = $scope.msgValidacaoMae ? false : true;
         this.submeter();
     }
 
