@@ -14,11 +14,11 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
         $scope.mensagem = 'Não foi possível listar os operadores!';
     });
 
-    $scope.excluir = function(operador) {        
+    $scope.excluir = function(operador) { 
+        const vm = this;       
         $http.delete(operadoresUrl + operador.id)
         .success(function() {
-            var indiceOperador = $scope.operadores.indexOf(operador);
-            $scope.operadores.splice(indiceOperador, 1);
+            vm.removerOperadores(operador);
             $scope.mensagem = 'Operador foi removido com sucesso!';
         })
         .error(function(error) {
@@ -26,6 +26,11 @@ angular.module('gerenciamentocadastro').controller('OperadoresController', funct
             $scope.countErros++;
             $scope.mensagem = 'Não foi possível excluir o operador!';
         });
+    };
+
+    $scope.removerOperadores = function(operador) {
+        const indiceOperador = $scope.operadores.indexOf(operador);
+        $scope.operadores.splice(indiceOperador, 1);
     };
 
     $scope.fecharAlerta = function() {

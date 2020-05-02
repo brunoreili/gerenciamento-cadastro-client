@@ -25,7 +25,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
     $scope.submeter = function() {        
         if($scope.formulario.$valid) {
             
-            var ObjPessoa = this.formatarObjPessoa($scope.pessoa);
+            const ObjPessoa = this.formatarObjPessoa($scope.pessoa);
             if(!$scope.pessoa.id && $scope.addTelefone) {           
                 this.cadastrarPessoa(ObjPessoa, $scope.addTelefone);
                 this.adicionarTelefone();
@@ -66,28 +66,6 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         });
     };
 
-    $scope.cadastrarTelefone = function(objTelefone) {
-        $http({
-            method: 'POST',
-            url: telefonesUrl,
-            data: objTelefone,
-            headers: {
-                'Access-Control-Allow-Origin' : '*',
-                'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-        })
-        .success(function() {        
-            $scope.telefonesPendentes = false;
-        })  
-        .error(function(erro) {
-            console.log(erro);
-            $scope.countErros++;
-            $scope.mensagem = "Não foi possível incluir o telefone!";
-        });
-    };
-
     $scope.editarPessoa = function(ObjPessoa) {
         $http.put(pessoasUrl + $scope.pessoa.id, ObjPessoa)
         .success(function() {
@@ -100,12 +78,57 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
         });
     };
 
-    $scope.excluirTelefone = function(id) {
-        console.log(id);
+    $scope.voltarExcluindoPessoa = function() {      
+        $http.delete(pessoasUrl + $scope.pessoa.id)
+        .success(function() {
+            window.location.href = "/pessoa/listar";
+        })
+        .error(function(error) {
+            console.log(error);
+            $scope.countErros++;
+            $scope.mensagem = 'Não foi possível voltar!';
+        });
+    },
+
+    $scope.cadastrarTelefone = function(objTelefone, posicaoTelefone) {
+        $http({
+            method: 'POST',
+            url: telefonesUrl,
+            data: objTelefone,
+            headers: {
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        })
+        .success(function(idTelefone) {      
+            $scope.telefones[posicaoTelefone].id = idTelefone;
+            $scope.telefonesPendentes = false;
+        })  
+        .error(function(erro) {
+            console.log(erro);
+            $scope.countErros++;
+            $scope.mensagem = "Não foi possível incluir o telefone!";
+        });
     };
 
-    $scope.adicionarTelefone = function(telefone) {
-        $scope.telefones.push(new Object({pendente: true}));
+    $scope.excluirTelefone = function(telefone) {  
+        const vm = this;
+        $http.delete(telefonesUrl + telefone.id)
+        .success(function() {
+            vm.removerTelefone(telefone);
+        })
+        .error(function(error) {
+            console.log(error);
+            $scope.countErros++;
+            $scope.mensagem = 'Não foi possível excluir o telefone!';
+        });
+    };
+
+    $scope.adicionarTelefone = function() {
+        const telefone = new Object({posicao: $scope.telefones.length, pendente: true});
+        $scope.telefones.push(telefone);
         $scope.addTelefone = false;
         $scope.telefonesPendentes = true;
         $scope.formulario.$submitted = null;
@@ -113,9 +136,16 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
 
     $scope.incluirTelefone = function(telefone) {     
         telefone.pendente = false;
-           
-        var objTelefone = this.formatarObjTelefone(telefone);
-        this.cadastrarTelefone(objTelefone);
+
+        const objTelefone = this.formatarObjTelefone(telefone);
+        this.cadastrarTelefone(objTelefone, telefone.posicao);
+    };
+
+    $scope.removerTelefone = function(telefone) {
+        const indiceTelefones = $scope.telefones.indexOf(telefone);
+        $scope.telefonesPendentes = false;
+        $scope.telefones[indiceTelefones].pendente = true;
+        $scope.telefones.splice(indiceTelefones, 1);
     };
 
     $scope.finalizarCadastro = function() {
@@ -126,7 +156,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
     }
 
     $scope.formatarObjPessoa = function(pessoa) {               
-        var ObjPessoa = {
+        const ObjPessoa = {
             nome: pessoa.nome,
             documento: pessoa.documento,
             nomeMae: pessoa.nomeMae,
@@ -140,7 +170,7 @@ angular.module('gerenciamentocadastro').controller('CadastroPessoaController', f
     };
 
     $scope.formatarObjTelefone = function(telefone) {               
-        var ObjTelefone = {
+        const ObjTelefone = {
             loginOperador: "operador1",
             ddd: "0" + telefone.ddd.toString(),
             numero: telefone.numero,

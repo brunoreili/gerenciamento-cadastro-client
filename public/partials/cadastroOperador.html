@@ -28,10 +28,8 @@
 
         <div class="form-group">
             <label>Login:<span class="alerta-required">*</span></label>
-            <div>
-                <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="!operador.id" required/>
-                <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="operador.id" required disabled/>
-            </div>
+            <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="!operador.id" required/>
+            <input type="text" name="login" class="form-control" ng-model="operador.login" ng-if="operador.id" disabled/>
             <span ng-show="formulario.$submitted && !operador.login" class="alerta-required"> Login obrigatório</span>
         </div>
 
